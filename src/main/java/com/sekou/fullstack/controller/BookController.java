@@ -4,6 +4,7 @@ import com.sekou.fullstack.common.PageResponse;
 import com.sekou.fullstack.module.book.BookRequest;
 import com.sekou.fullstack.module.book.BookResponse;
 import com.sekou.fullstack.service.BookService;
+import com.sekou.fullstack.service.BorrowedBookResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,24 @@ public class BookController {
             Authentication connectedUser
     ){
         return ResponseEntity.ok(service.findAllBooks(page, size, connectedUser));
+    }
+
+    @GetMapping("/owner")
+    public ResponseEntity<PageResponse<BookResponse>> findBooksByOwner(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "", required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.findAllBooksByOwner(page, size, connectedUser));
+    }
+
+    @GetMapping("/borrowed")
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooks(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "", required = false) int size,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(service.findAllBorrowedBooks(page, size, connectedUser));
     }
 
 }

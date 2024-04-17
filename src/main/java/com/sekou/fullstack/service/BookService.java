@@ -1,6 +1,7 @@
 package com.sekou.fullstack.service;
 
 import com.sekou.fullstack.common.PageResponse;
+import com.sekou.fullstack.module.BookTransactionHistory;
 import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.module.book.BookRequest;
 import com.sekou.fullstack.module.book.BookResponse;
@@ -17,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.sekou.fullstack.module.book.BookSpecification.withOwnerId;
 
 @Service
 @RequiredArgsConstructor
@@ -58,5 +61,41 @@ public class BookService {
                 books.isLast()
         );
 
+    }
+
+    public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
+        User user = ((User)  connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size,Sort.by("createdDate").descending());
+        Page<Book> books = bookRepository.findAll(withOwnerId(user.getId()), pageable);
+        List<BookResponse> bookResponse = books.stream()
+                .map(bookMapper::toBookResponse)
+                .toList();
+        return new PageResponse<>(
+                bookResponse,
+                books.getNumber(),
+                books.getSize(),
+                books.getTotalElements(),
+                books.getTotalPages(),
+                books.isFirst(),
+                books.isLast()
+        );
+    }
+
+    public PageResponse<BorrowedBookResponse> findAllBorrowedBooks(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<BookTransactionHistory> allBorrowBooks = bookTransactionHistoryRepository.findAllBorrowedBooks(pageable, user.getId());
+        List<BorrowedBookResponse> bookResponse = allBorrowBooks.stream()
+                .map(bookMapper::toBorrowedBookResponse)
+                .toList();
+        return new PageResponse<>(
+                bookResponse,
+                allBorrowBooks.getNumber(),
+                allBorrowBooks.getSize(),
+                allBorrowBooks.getTotalElements(),
+                allBorrowBooks.getTotalPages(),
+                allBorrowBooks.isFirst(),
+                allBorrowBooks.isLast()
+        );
     }
 }

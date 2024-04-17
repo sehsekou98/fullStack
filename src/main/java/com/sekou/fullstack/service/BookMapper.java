@@ -1,5 +1,6 @@
 package com.sekou.fullstack.service;
 
+import com.sekou.fullstack.module.BookTransactionHistory;
 import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.module.book.BookRequest;
 import com.sekou.fullstack.module.book.BookResponse;
@@ -30,6 +31,18 @@ public class BookMapper {
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
                 //.cover(book.getCover)
+                .build();
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
+        return BorrowedBookResponse.builder()
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRate())
+                .returned(history.isReturned())
+                .returnApproved(history.isReturnApproved())
                 .build();
     }
 }
