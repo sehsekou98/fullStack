@@ -1,6 +1,8 @@
-package com.sekou.fullstack.module;
+package com.sekou.fullstack.module.book;
 
 import com.sekou.fullstack.common.CommonEntity;
+import com.sekou.fullstack.module.BookTransactionHistory;
+import com.sekou.fullstack.module.FeedBack;
 import com.sekou.fullstack.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,5 +36,18 @@ public class Book extends CommonEntity {
 
     @OneToMany(mappedBy = "book")
     private List<BookTransactionHistory> histories;
+
+    @Transient
+    public double getRate() {
+        if (feedBacks == null || feedBacks.isEmpty()){
+            return 0.0;
+        }
+        var rate = this.feedBacks.stream()
+                .mapToDouble(FeedBack::getNote)
+                .average().orElse(0.0);
+        double roundedRate = Math.round(rate * 10.0) / 10.0;
+
+        return roundedRate;
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.sekou.fullstack.user;
 
-import com.sekou.fullstack.module.Book;
+import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.module.BookTransactionHistory;
 import com.sekou.fullstack.role.Role;
 import jakarta.persistence.*;

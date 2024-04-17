@@ -1,6 +1,7 @@
 package com.sekou.fullstack.module;
 
 import com.sekou.fullstack.common.CommonEntity;
+import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
