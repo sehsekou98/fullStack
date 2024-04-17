@@ -1,10 +1,12 @@
 package com.sekou.fullstack.user;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findByEmail(String email);
+public interface TokenRepository extends JpaRepository<Token, Integer> {
+    Optional<Token> findByToken(String token);
+
 }
