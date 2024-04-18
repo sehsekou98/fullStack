@@ -1,5 +1,6 @@
-package com.sekou.fullstack.execption;
+package com.sekou.fullstack.handleExecption;
 
+import com.sekou.fullstack.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sekou.fullstack.execption.BusinessErrorCode.*;
+import static com.sekou.fullstack.handleExecption.BusinessErrorCode.*;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
@@ -66,6 +67,18 @@ public class GlobalException {
                 );
 
     }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp){
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp){
         Set<String> errors = new HashSet<>();

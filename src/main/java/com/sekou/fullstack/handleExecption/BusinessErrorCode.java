@@ -1,4 +1,4 @@
-package com.sekou.fullstack.execption;
+package com.sekou.fullstack.handleExecption;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.sekou.fullstack.execption;
+package com.sekou.fullstack.handleExecption;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
