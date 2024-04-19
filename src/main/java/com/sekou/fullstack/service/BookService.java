@@ -2,6 +2,7 @@ package com.sekou.fullstack.service;
 
 import com.sekou.fullstack.common.PageResponse;
 import com.sekou.fullstack.exception.OperationNotPermittedException;
+import com.sekou.fullstack.file.FileStorageService;
 import com.sekou.fullstack.module.BookTransactionHistory;
 import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.module.book.BookRequest;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,9 +27,11 @@ import static com.sekou.fullstack.module.book.BookSpecification.withOwnerId;
 
 @Service
 @RequiredArgsConstructor
+
 public class BookService {
-    private BookMapper bookMapper;
+    private final BookMapper bookMapper;
     private final BookRepository bookRepository;
+    private final FileStorageService fileStorageService;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
 
 
@@ -200,5 +204,14 @@ public class BookService {
                 .orElseThrow(() -> new OperationNotPermittedException("You have not return this book."));
         bookTransactionHistory.setReturnApproved(true);
         return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
+    }
+
+    public void uploadCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("No book with the ID:: " + bookId));
+        User user = ((User) connectedUser.getPrincipal());
+        var bookCover = fileStorageService.saveFile(file, user.getId());
+        book.setBookCover(bookCover);
+        bookRepository.save(book);
     }
 }
