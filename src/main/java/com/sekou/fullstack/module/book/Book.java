@@ -2,7 +2,7 @@ package com.sekou.fullstack.module.book;
 
 import com.sekou.fullstack.common.CommonEntity;
 import com.sekou.fullstack.module.BookTransactionHistory;
-import com.sekou.fullstack.module.FeedBack;
+import com.sekou.fullstack.module.feedback.FeedBack;
 import com.sekou.fullstack.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

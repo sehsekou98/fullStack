@@ -1,4 +1,4 @@
-package com.sekou.fullstack.module;
+package com.sekou.fullstack.module.feedback;
 
 import com.sekou.fullstack.common.CommonEntity;
 import com.sekou.fullstack.module.book.Book;
