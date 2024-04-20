@@ -1,5 +1,6 @@
 package com.sekou.fullstack.service;
 
+import com.sekou.fullstack.file.FileUtils;
 import com.sekou.fullstack.module.BookTransactionHistory;
 import com.sekou.fullstack.module.book.Book;
 import com.sekou.fullstack.module.book.BookRequest;
@@ -30,7 +31,7 @@ public class BookMapper {
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
-                //.cover(book.getCover)
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
