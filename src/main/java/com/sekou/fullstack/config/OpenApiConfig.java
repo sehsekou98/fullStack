@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 version = "1,0",
                 license = @License(
                         name = "License",
-                        url = "http://url.com"
+                        url = "https://url.com"
                 ),
                 termsOfService = "Terms of service"
         ),
