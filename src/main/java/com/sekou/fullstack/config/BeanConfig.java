@@ -23,7 +23,7 @@ import static org.springframework.http.HttpHeaders.*;
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfig {
-    private final UserDetailsService userDetailsService;
+    /*private final UserDetailsService userDetailsService;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -34,22 +34,18 @@ public class BeanConfig {
     }
 
     @Bean
-    public AuditorAware<Integer> auditorAware() {
-        return new ApplicationAuditAware();
-    }
-
-
-    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return  new BCryptPasswordEncoder();
+    }*/
+
+    @Bean
+    public AuditorAware<Integer> auditorAware() {
+        return new ApplicationAuditAware();
     }
 
     @Bean

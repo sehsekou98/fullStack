@@ -28,17 +28,14 @@ spring:
           connection timeout: 5000
           timeout: 3000
           write timeout: 5000
-
+  security:
+    oauth2:
+      authorizationserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/Renee-smith-book-network"
 
 application:
-  security:
-    jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 3640000
 
-  mailing:
-    frontend:
-      activation-url: http://localhost:4200/activate-account
   file:
     upload:
       photos-output-path: ./uploads
