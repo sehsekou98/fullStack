@@ -27,9 +27,9 @@ public class Book extends CommonEntity {
     private boolean archived;
     private boolean shareable;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+   // @ManyToOne
+    //@JoinColumn(name = "owner_id")
+    //private User owner;
 
     @OneToMany(mappedBy = "book")
     private List<FeedBack> feedBacks;

@@ -6,12 +6,11 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: false
     properties:
       hibernate:
         format_sql: true
-    database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: localhost
@@ -21,23 +20,21 @@ spring:
     properties:
       mail:
         smtp:
-          true: "*"
           auth: true
           starttls:
             enabled: true
-          connection timeout: 5000
+          connection-timeout: 5000
           timeout: 3000
-          write timeout: 5000
+          write-timeout: 5000
   security:
     oauth2:
-      authorizationserver:
+      resource-server:
         jwt:
           issuer-uri: "http://localhost:9090/realms/Renee-smith-book-network"
-
 application:
-
   file:
     upload:
       photos-output-path: ./uploads
+
 server:
   port: 8088
